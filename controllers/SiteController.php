@@ -143,4 +143,8 @@ class SiteController extends Controller
         return $this->render('userForm', ['model' => $model]);
 
     }
+
+    public function actionSpeak($message = 'Default message'){
+        return $this->render('speak',['message' => $message]);
+    }
 }
