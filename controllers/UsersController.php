@@ -14,4 +14,10 @@ class UsersController extends Controller {
         $users = Users::find()->all();
         return $this->render('index', ['users' => $users]);
     }
+
+    public function actionTest()
+    {
+        $test =  "This is a Test";
+        return $this->render('test', ['test' => $test]);
+    }
 }
