@@ -7,9 +7,12 @@
  */
 
 namespace app\controllers;
+
 use yii\web\Controller;
 
-class ExampleController extends Controller {
+class ExampleController extends Controller
+{
+    public $defaultAction = 'google';
 
     public function actions()
     {
@@ -18,11 +21,18 @@ class ExampleController extends Controller {
         ];
     }
 
-    public function actionExample($message = 'Default message'){
-        return $this->render('example',['message' => $message]);
+    public function actionExample($message = 'Default message')
+    {
+        return $this->render('example', ['message' => $message]);
     }
 
-    public function actionGoogle(){
+    public function actionGoogle()
+    {
         return $this->redirect('http://www.google.com');
+    }
+
+    public function actionTestParams($first, $second)
+    {
+        return "$first $second";
     }
 }

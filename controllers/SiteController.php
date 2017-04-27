@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\UserForm;
 use Yii;
+use yii\base\Model;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -104,6 +105,7 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
+        $model->scenario = ContactForm::SCENARIO_EMAIL_FROM_USER;
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
 
@@ -135,7 +137,7 @@ class SiteController extends Controller
     public function actionUser()
     {
         $model = new UserForm;
-        if ($model->load(Yii::$app->request->post()) && $model->validate() ) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             Yii::$app->session->setFlash('success', 'You have entered the data correctly');
             //left right this later
         }
@@ -144,7 +146,31 @@ class SiteController extends Controller
 
     }
 
-    public function actionSpeak($message = 'Default message'){
-        return $this->render('speak',['message' => $message]);
+    public function actionSpeak($message = 'Default message')
+    {
+        return $this->render('speak', ['message' => $message]);
+    }
+
+    public function actionShowContactModel()
+    {
+        $mContactForm = new \app\models\ContactForm();
+        $postData = \Yii::$app->request->post('ContactForm', []);
+        $mContactForm->name = isset($postData['name']) ? $postData['name'] : null;
+        $mContactForm->email = isset($postData['email']) ? $postData['email'] : null;
+        $mContactForm->subject = isset($postData['subject']) ? $postData['subject'] : null;
+        $mContactForm->body = isset($postData['body']) ? $postData['body'] : null;
+        $mContactForm->name = 'AkKeRise';
+//        $mContactForm->name = 'contactForm';
+//        $mContactForm->email = 'asdsa@c.c';
+//        $mContactForm->subject = 'asd';
+//        $mContactForm->body = 'dsa';
+//        return \yii\helpers\Json::encode($mContactForm);
+        return $mContactForm;
+    }
+
+    public function actionTestWidget()
+    {
+        $model = new Model;
+        return $this->render('testwidget',['model' => $model]);
     }
 }
