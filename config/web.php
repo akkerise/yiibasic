@@ -39,12 +39,13 @@ $config = [
         ],
 
         'db' => require(__DIR__ . '/db.php'),
-
+        /*
         'modules' => [
             'hello' => [
                 'class' => 'app\modules\hello\Hello'
             ]
         ],
+        */
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

@@ -7,11 +7,11 @@ use Yii;
 /**
  * This is the model class for table "posts".
  *
- * @property string $id
+ * @property integer $id
  * @property string $title
  * @property string $content
  * @property string $description
- * @property string $author_id
+ * @property integer $author_id
  *
  * @property Users $author
  */
@@ -32,9 +32,9 @@ class Posts extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'content', 'description', 'author_id'], 'required'],
-            [['content', 'description'], 'string'],
+            [['description'], 'string'],
             [['author_id'], 'integer'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'content'], 'string', 'max' => 255],
             [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
@@ -58,8 +58,6 @@ class Posts extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(Users::className(), ['id' => 'author_id'])->inverseOf('posts');
     }
-
-
 }

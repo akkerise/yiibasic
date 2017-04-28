@@ -18,6 +18,6 @@ class Hello extends Module
     public function init()
     {
         parent::init();
-        $this->params['foo'] = 'bar';
+//        $this->params['foo'] = 'bar';
     }
 }
